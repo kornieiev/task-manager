@@ -21,23 +21,23 @@ export default function Content({
   }
 
   return (
-    <section className='mt-26 p-8'>
-      <h2 className='font-bold capitalize text-5xl text-emerald-700 mb-6'>
+    <section className='p-8 mt-26'>
+      <h2 className='mb-6 text-5xl font-bold capitalize text-emerald-700'>
         {currentTask[0].projectTitle}
       </h2>
       <p>Date: {currentTask[0].created}</p>
       <p>Theme: {currentTask[0].projectTitle}</p>
 
-      <form className='flex gap-6 mt-6 items-center' action='submit'>
+      <form className='flex items-center gap-6 mt-6' action='submit'>
         <input
-          className='bg-white border border-gray-300 rounded-xl px-3 py-2 h-fit w-3xl'
+          className='px-3 py-2 bg-white border border-gray-300 rounded-xl h-fit w-3xl'
           type='text'
           placeholder='Enter task name'
           value={enteredValue}
           onChange={onHandleChange}
         />
         <button
-          className='h-fit bg-white hover:bg-amber-200 transition-all duration-300 text-black/80 text-lg font-medium px-6 py-2 rounded-xl hover:outline hover:outline-gray-300 hover:text-emerald-700'
+          className='px-6 py-2 text-lg font-medium transition-all duration-300 bg-white h-fit hover:bg-amber-200 text-black/80 rounded-xl hover:outline hover:outline-gray-300 hover:text-emerald-700'
           onClick={handleClick}
           type='button'
         >
@@ -50,7 +50,7 @@ export default function Content({
           return (
             <li key={idx}>
               <p
-                className='border-gray-200 bg-white border px-2 py-1 rounded-xl max-w-3xl'
+                className='max-w-3xl px-2 py-1 bg-white border border-gray-200 rounded-xl'
                 type='text'
               >
                 {task}

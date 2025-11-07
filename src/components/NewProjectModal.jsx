@@ -1,6 +1,17 @@
 import { useRef } from "react";
 import { createPortal } from "react-dom";
 
+const style = {
+  label:
+    "mt-3 mb-1 text-2xl font-bold tracking-wide text-center uppercase transition-all duration-300 peer-focus/title:text-emerald-600 peer-focus/title:scale-105 text-black/70",
+  input:
+    "px-4 py-2 text-2xl tracking-wide border peer/title rounded-xl min-w-xl outline-none focus:scale-105 duration-300 transition-all",
+  inputWrapper: "mt-4 flex flex-col-reverse ",
+  button:
+    "px-8 py-4 mx-auto mt-12 text-2xl tracking-wide uppercase transition-all my-5 duration-300 peer/button bg-emerald-700 text-amber-200 rounded-xl hover:text-emerald-700 hover:bg-amber-200 hover:scale-105",
+  line: "mt-4 text-transparent mx-auto w-0 peer-hover/button:w-xl h-[3px] peer-hover/button:bg-emerald-700 border transition-all duration-1000",
+};
+
 export default function NewProjectModal({
   showModal,
   toggleModal,
@@ -19,12 +30,12 @@ export default function NewProjectModal({
   return createPortal(
     <>
       <div
-        className='fixed inset-0 bg-black/70 bg-opacity-75 backdrop-blur-sm z-40'
+        className='fixed inset-0 z-40 bg-opacity-75 bg-black/70 backdrop-blur-sm'
         onClick={toggleModal}
       />
       <dialog
         open={showModal}
-        className='project-modal flex flex-col'
+        className='flex flex-col project-modal'
         // onClose={toggleModal}
       >
         <form
@@ -33,57 +44,46 @@ export default function NewProjectModal({
           action=''
           onSubmit={handleModalClose}
         >
-          <div className='flex flex-col-reverse'>
+          <div className={style.inputWrapper}>
             <input
               ref={titleRef}
-              className='peer/title border rounded-xl px-4 py-2 min-w-xl tracking-wide text-2xl'
+              className={style.input}
               id='title'
               type='text'
               required
               placeholder='Enter title...'
             />
-            <label
-              htmlFor='title'
-              className='peer-focus/title:text-emerald-600 peer-focus/title:scale-105 text-center text-xl mt-3 mb-1 tracking-wide uppercase text-black/70 font-bold transition-all duration-300'
-            >
+            <label htmlFor='title' className={style.label}>
               Title:
             </label>
           </div>
-          <div className='flex flex-col-reverse'>
+          <div className={style.inputWrapper}>
             <input
               ref={descriptionRef}
-              className='peer/title border rounded-xl px-4 py-2 min-w-xl tracking-wide text-2xl'
+              className={style.input}
               id='description'
               type='text'
               placeholder='Enter description...'
             />
-            <label
-              htmlFor='description'
-              className='peer-focus/title:text-emerald-600 peer-focus/title:scale-105 text-center text-xl mt-3 mb-1 tracking-wide uppercase text-black/70 font-bold transition-all duration-300'
-            >
+            <label htmlFor='description' className={style.label}>
               Description:
             </label>
           </div>
-          <div className='flex flex-col-reverse'>
+          <div className={style.inputWrapper}>
             <input
               ref={dueDateRef}
-              className='peer/title border rounded-xl px-4 py-2 min-w-xl tracking-wide text-2xl'
+              className={style.input}
               id='dueDate'
               type='date'
               required
             />
-            <label
-              htmlFor='dueDate'
-              className='peer-focus/title:text-emerald-600 peer-focus/title:scale-105 text-center text-xl mt-3 mb-1 tracking-wide uppercase text-black/70 font-bold transition-all duration-300'
-            >
+            <label htmlFor='dueDate' className={style.label}>
               Due date:
             </label>
           </div>
 
-          <button className='peer/button tracking-wide uppercase mx-auto mt-10 px-8 py-4 bg-emerald-700 text-amber-200 rounded-xl text-2xl transition-all duration-300 hover:text-emerald-700 hover:bg-amber-200 hover:scale-105'>
-            Close
-          </button>
-          <div className='mt-1 text-transparent mx-auto w-0 peer-hover/button:w-xl h-[3px] peer-hover/button:bg-emerald-700 border transition-all duration-500'></div>
+          <button className={style.button}>Close</button>
+          <div className={style.line}></div>
         </form>
       </dialog>
     </>,
