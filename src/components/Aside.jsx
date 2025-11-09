@@ -9,10 +9,10 @@ export default function Aside({
   toggleModal,
 }) {
   return (
-    <div className=' bg-amber-200 p-6 mt-16 rounded-r-4xl'>
+    <div className='p-6 mt-16 bg-custom-light-blue rounded-tr-4xl'>
       <Logo />
 
-      <h2 className='uppercase mt-10 text-2xl font-bold pl-4'>
+      <h2 className='mt-10 text-2xl font-bold text-center uppercase text-custom-red font-exo-2'>
         your projects:
       </h2>
 

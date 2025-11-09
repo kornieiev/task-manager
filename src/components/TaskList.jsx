@@ -4,8 +4,8 @@ export default function TaskList({
   handleActiveTask,
 }) {
   return (
-    <div className='flex flex-col gap-6 mt-8 pl-8'>
-      <ul className='flex flex-col gap-3'>
+    <div className='flex flex-col gap-6 mt-8'>
+      <ul className='flex flex-col gap-3 '>
         {dummyProjects.map((project) => {
           const isActive = activeTask === project.id;
           return (
@@ -13,7 +13,7 @@ export default function TaskList({
               key={project.id}
               onClick={() => handleActiveTask(project.id)}
               className={`flex gap-3 text-2xl  font-medium capitalize transition-all duration-300 cursor-pointer ${
-                isActive ? "translate-x-4" : undefined
+                isActive ? "translate-x-2" : undefined
               } text-black/60 hover:text-black`}
             >
               <span

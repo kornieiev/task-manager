@@ -6,7 +6,7 @@ import NewProjectModal from "./NewProjectModal";
 const dummyProjects = [
   {
     id: "1",
-    projectTitle: "test name 1",
+    projectTitle: "Shopping list",
     projectText: "some dummy text 1",
     created: "22-10-2025",
     projectTasks: ["dummy task name 1-1", "dummy task name 1-2"],
@@ -14,7 +14,7 @@ const dummyProjects = [
   },
   {
     id: "2",
-    projectTitle: "test name 2",
+    projectTitle: "Study",
     projectText: "some dummy text 2",
     created: "22-10-2025",
     projectTasks: ["dummy task name 2-1", "dummy task name 2-2"],
@@ -22,7 +22,7 @@ const dummyProjects = [
   },
   {
     id: "3",
-    projectTitle: "test name 3",
+    projectTitle: "To do list",
     projectText: "some dummy text 3",
     created: "22-10-2025",
     projectTasks: ["dummy task name 3-1", "dummy task name 3-2"],
@@ -30,7 +30,7 @@ const dummyProjects = [
   },
   {
     id: "4",
-    projectTitle: "test name 4",
+    projectTitle: "Gym List",
     projectText: "some dummy text 4",
     created: "22-10-2025",
     projectTasks: ["dummy task name 4-1", "dummy task name 4-2"],
@@ -76,9 +76,9 @@ export default function Layout() {
   }
 
   return (
-    <div className='grid grid-cols-[1fr_4fr] min-w-screen w-full bg-amber-100 h-screen gap-4'>
+    <div className='grid grid-cols-[1fr_4fr] min-w-screen w-full bg-custom-yellow h-screen gap-4'>
       <Aside
-        className=' bg-amber-200 p-4'
+        className='p-4 '
         dummyProjects={tasks}
         activeTask={activeTask}
         handleActiveTask={handleActiveTask}
@@ -91,7 +91,7 @@ export default function Layout() {
       />
       {activeTask ? (
         <Content
-          className=' bg-blue-100 p-4'
+          className='p-4 bg-blue-100 '
           currentTask={tasks.filter((task) => task.id === activeTask)}
           addNewTask={addNewTask}
           enteredValue={enteredValue}

@@ -1,14 +1,74 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap");
+
+@theme {
+  --color-custom-carrot: #d79922;
+  --color-custom-yellow: #efe2ba;
+  --color-custom-red: #f13c20;
+  --color-custom-blue: #4056a1;
+  --color-custom-light-blue: #c5cbe3;
+}
 
 .font-merriweather {
   font-family: "Merriweather", serif;
 }
 
+.font-audiowide {
+  font-family: "Audiowide", sans-serif;
+}
+
+.font-exo-2 {
+  font-family: "Exo 2", sans-serif;
+}
+
+.font-orbitron {
+  font-family: "Orbitron", sans-serif;
+}
+
+.font-inter {
+  font-family: "Inter", sans-serif;
+}
+
 /* Кастомные стили должны быть после Tailwind */
 
+/* Fallback анимации если Tailwind config не работает */
+@keyframes pulse-fast {
+  0%,
+  100% {
+    opacity: 1;
+    scale: 1.05;
+  }
+  50% {
+    opacity: 0.9;
+    scale: 1.1;
+  }
+}
+
+/* Мягкая пульсация */
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.02);
+    outline: 2px solid white;
+
+    /* color: #d79922; */
+  } /* Менее заметное затемнение */
+}
+
+.animate-pulse-fast {
+  animation: pulse-fast 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Exo 2", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 

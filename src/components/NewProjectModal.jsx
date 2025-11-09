@@ -3,13 +3,13 @@ import { createPortal } from "react-dom";
 
 const style = {
   label:
-    "mt-3 mb-1 text-2xl font-bold tracking-wide text-center uppercase transition-all duration-300 peer-focus/title:text-emerald-600 peer-focus/title:scale-105 text-black/70",
+    "mt-3 mb-1 text-2xl font-bold tracking-wide text-center uppercase transition-all duration-300 peer-focus/title:text-emerald-600 peer-focus/title:scale-105 text-black/70 peer-focus/title:translate-y-1",
   input:
     "px-4 py-2 text-2xl tracking-wide border peer/title rounded-xl min-w-xl outline-none focus:scale-105 duration-300 transition-all",
   inputWrapper: "mt-4 flex flex-col-reverse ",
   button:
     "px-8 py-4 mx-auto mt-12 text-2xl tracking-wide uppercase transition-all my-5 duration-300 peer/button bg-emerald-700 text-amber-200 rounded-xl hover:text-emerald-700 hover:bg-amber-200 hover:scale-105",
-  line: "mt-4 text-transparent mx-auto w-0 peer-hover/button:w-xl h-[3px] peer-hover/button:bg-emerald-700 border transition-all duration-1000",
+  line: "mt-4 text-transparent mx-auto w-0 peer-hover/button:w-xl h-[3px] peer-hover/button:bg-emerald-700 border transition-all duration-700",
 };
 
 export default function NewProjectModal({
