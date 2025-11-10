@@ -84,8 +84,15 @@ export default function NewProjectModal({
             </label>
           </div>
 
-          <button className={style.button}>Close</button>
+          <button className={style.button}>Create new project</button>
           <div className={style.line}></div>
+          <button
+            className='absolute p-3 text-5xl transition-all duration-300 top-2 right-5 hover:scale-110 hover:font-semibold hover:text-custom-red'
+            type='button'
+            onClick={toggleModal}
+          >
+            ×
+          </button>
         </form>
       </dialog>
     </>,

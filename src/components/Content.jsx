@@ -5,13 +5,17 @@ export default function Content({
   addNewTask,
   enteredTask,
   setEnteredTask,
+  approveDelete,
+  setApproveDelete,
 }) {
   const [errorMassage, setErrorMessage] = useState("");
 
   function handleClick(e) {
     e.preventDefault();
     if (enteredTask.length < 2) {
-      setErrorMessage("Please enter value with length more then 2 symbols");
+      setErrorMessage(
+        "Please enter a value with at least 2 characters in length"
+      );
       return;
     }
 
@@ -63,13 +67,50 @@ export default function Content({
         Tasks:
         {currentTask[0].projectTasks.map((task, idx) => {
           return (
-            <li key={idx}>
+            <li className='flex flex-row gap-3 ' key={idx}>
               <p
-                className='max-w-3xl px-2 py-1 bg-white border border-gray-200 rounded-xl'
+                className=' h-[42px] flex-1 max-w-3xl px-4 py-2 bg-white border border-gray-200 rounded-xl'
                 type='text'
               >
                 {task}
               </p>
+              {approveDelete.includes(idx) ? (
+                <button
+                  className='h-[42px] px-2 py-1 transition-all duration-300 bg-white/90 text-emerald-700 rounded-xl hover:scale-105 hover:font-semibold hover:bg-white'
+                  onClick={() => {
+                    console.log("Cancel");
+                    setApproveDelete([]);
+                  }}
+                >
+                  Cancel
+                </button>
+              ) : (
+                <button
+                  className='h-[42px] text-2xl p-[5px] transition-all duration-300 hover:scale-120 hover:font-semibold hover:text-custom-red'
+                  type='button'
+                  // onClick={() => setApproveDelete((prev) => !prev)}
+
+                  onClick={() =>
+                    setApproveDelete((prev) =>
+                      prev.includes(idx)
+                        ? prev.filter((id) => id !== idx)
+                        : [...prev, idx]
+                    )
+                  }
+                >
+                  ×
+                </button>
+              )}
+              {approveDelete.includes(idx) && (
+                <>
+                  <button
+                    className='h-[42px] px-2 py-1 transition-all duration-300 bg-white/90 text-custom-red rounded-xl hover:scale-105 hover:font-semibold hover:bg-white'
+                    onClick={() => console.log("DELETE")}
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
             </li>
           );
         })}

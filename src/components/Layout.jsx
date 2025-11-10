@@ -2,6 +2,7 @@ import { useState } from "react";
 import Aside from "./Aside";
 import Content from "./Content";
 import NewProjectModal from "./NewProjectModal";
+import Plug from "./Plug";
 
 const dummyProjects = [
   {
@@ -43,6 +44,7 @@ export default function Layout() {
   const [activeTask, setActiveTask] = useState(null);
   const [enteredTask, setEnteredTask] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [approveDelete, setApproveDelete] = useState([]);
 
   function handleActiveTask(id) {
     if (!id) {
@@ -96,9 +98,11 @@ export default function Layout() {
           addNewTask={addNewTask}
           enteredTask={enteredTask}
           setEnteredTask={setEnteredTask}
+          approveDelete={approveDelete}
+          setApproveDelete={setApproveDelete}
         />
       ) : (
-        <p>Choose task to work with</p>
+        <Plug toggleModal={handleToggleModal} />
       )}
     </div>
   );
