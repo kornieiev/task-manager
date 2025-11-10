@@ -41,7 +41,7 @@ const dummyProjects = [
 export default function Layout() {
   const [tasks, setTasks] = useState(dummyProjects);
   const [activeTask, setActiveTask] = useState(null);
-  const [enteredValue, setEnteredValue] = useState("");
+  const [enteredTask, setEnteredTask] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   function handleActiveTask(id) {
@@ -49,7 +49,7 @@ export default function Layout() {
       return;
     }
     setActiveTask(id);
-    setEnteredValue("");
+    setEnteredTask("");
   }
 
   function addNewTask(id, newTask) {
@@ -94,8 +94,8 @@ export default function Layout() {
           className='p-4 bg-blue-100 '
           currentTask={tasks.filter((task) => task.id === activeTask)}
           addNewTask={addNewTask}
-          enteredValue={enteredValue}
-          setEnteredValue={setEnteredValue}
+          enteredTask={enteredTask}
+          setEnteredTask={setEnteredTask}
         />
       ) : (
         <p>Choose task to work with</p>

@@ -1,23 +1,29 @@
-// import { useRef, useState } from "react";
-
 import { useState } from "react";
 
 export default function Content({
   currentTask,
   addNewTask,
-  enteredValue,
-  setEnteredValue,
+  enteredTask,
+  setEnteredTask,
 }) {
-  const [enteredTask, setEnteredTask] = useState("");
-  function handleClick() {
-    console.log("enteredTask", enteredTask);
-    addNewTask(currentTask[0].id, enteredValue);
-    setEnteredValue("");
+  const [errorMassage, setErrorMessage] = useState("");
+
+  function handleClick(e) {
+    e.preventDefault();
+    if (enteredTask.length < 2) {
+      setErrorMessage("Please enter value with length more then 2 symbols");
+      return;
+    }
+
+    console.log("enteredValue", enteredTask);
+    addNewTask(currentTask[0].id, enteredTask);
+    setEnteredTask("");
   }
 
   function onHandleChange(e) {
     setEnteredTask(e.target.value);
-    setEnteredValue(e.target.value);
+    setEnteredTask(e.target.value);
+    setErrorMessage("");
   }
 
   return (
@@ -28,23 +34,32 @@ export default function Content({
       <p>Date: {currentTask[0].created}</p>
       <p>Theme: {currentTask[0].projectTitle}</p>
 
-      <form className='flex items-center gap-6 mt-6' action='submit'>
+      <form
+        className='relative flex items-center gap-6 mt-6 '
+        onSubmit={handleClick}
+        action='submit'
+      >
         <input
-          className='px-3 py-2 bg-white border border-gray-300 rounded-xl h-fit w-3xl'
+          className={`${errorMassage ? " outline outline-custom-red" : null} relative px-3 py-2 bg-white border border-gray-300 rounded-xl h-fit w-3xl`}
           type='text'
-          placeholder='Enter task name'
-          value={enteredValue}
+          placeholder='Enter task here'
+          value={enteredTask}
           onChange={onHandleChange}
         />
+        {errorMassage && (
+          <span className='absolute italic font-semibold transition-all duration-300 transform -top-6 left-50 text-custom-red animate-pulse'>
+            {errorMassage}
+          </span>
+        )}
+
         <button
           className='px-6 py-2 text-lg font-medium transition-all duration-300 bg-white h-fit hover:bg-amber-200 text-black/80 rounded-xl hover:outline hover:outline-gray-300 hover:text-emerald-700'
-          onClick={handleClick}
-          type='button'
+          type='submit'
         >
           + Add task
         </button>
       </form>
-      <ul className='flex flex-col gap-2'>
+      <ul className='flex flex-col gap-2 mt-4'>
         Tasks:
         {currentTask[0].projectTasks.map((task, idx) => {
           return (

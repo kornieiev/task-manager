@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 
 const style = {
   label:
-    "mt-3 mb-1 text-2xl font-bold tracking-wide text-center uppercase transition-all duration-300 peer-focus/title:text-emerald-600 peer-focus/title:scale-105 text-black/70 peer-focus/title:translate-y-1",
+    "mt-3 mb-1 text-2xl font-bold tracking-wide text-center uppercase transition-all duration-300 peer-focus/title:text-custom-red peer-focus/title:scale-105 text-black/70 peer-focus/title:translate-y-1",
   input:
     "px-4 py-2 text-2xl tracking-wide border peer/title rounded-xl min-w-xl outline-none focus:scale-105 duration-300 transition-all",
   inputWrapper: "mt-4 flex flex-col-reverse ",
@@ -23,8 +23,11 @@ export default function NewProjectModal({
 
   if (!showModal) return null;
 
-  function handleModalClose() {
-    toggleModal();
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log("e", e);
+
+    // toggleModal();
   }
 
   return createPortal(
@@ -42,7 +45,7 @@ export default function NewProjectModal({
           className='flex flex-col group-hover:bg-amber-700'
           method='dialog'
           action=''
-          onSubmit={handleModalClose}
+          onSubmit={handleSubmit}
         >
           <div className={style.inputWrapper}>
             <input
@@ -58,11 +61,10 @@ export default function NewProjectModal({
             </label>
           </div>
           <div className={style.inputWrapper}>
-            <input
+            <textarea
               ref={descriptionRef}
-              className={style.input}
+              className={style.input + " resize-none max-h-[150px]"}
               id='description'
-              type='text'
               placeholder='Enter description...'
             />
             <label htmlFor='description' className={style.label}>
