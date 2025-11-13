@@ -1,12 +1,8 @@
-export default function TaskList({
-  dummyProjects,
-  activeTask,
-  handleActiveTask,
-}) {
+export default function TaskList({ projects, activeTask, handleActiveTask }) {
   return (
-    <div className='flex flex-col gap-6 mt-8'>
+    <div className='flex flex-col gap-6 mt-6'>
       <ul className='flex flex-col gap-3 '>
-        {dummyProjects.map((project) => {
+        {projects.map((project) => {
           const isActive = activeTask === project.id;
           return (
             <li

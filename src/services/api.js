@@ -1,0 +1,58 @@
+async function fetchProjects() {
+  try {
+    const response = await fetch("http://localhost:3003/api/projects");
+    const projects = await response.json();
+    return projects;
+  } catch (error) {
+    console.error("Ошибка загрузки проектов:", error);
+  }
+}
+
+async function createTask(projectId, taskText) {
+  try {
+    const response = await fetch(
+      `http://localhost:3003/api/projects/${projectId}/tasks`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ taskText }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to create task");
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Ошибка создания задачи:", error);
+    throw error;
+  }
+}
+
+async function createProject(title, description) {
+  try {
+    const response = await fetch("http://localhost:3003/api/projects", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, description }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create project");
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Ошибка создания проекта:", error);
+    throw error;
+  }
+}
+
+export { fetchProjects, createTask, createProject };

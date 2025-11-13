@@ -21,6 +21,7 @@ export default function Content({
 
     console.log("enteredValue", enteredTask);
     addNewTask(currentTask[0].id, enteredTask);
+    // addNewTask(currentTask[0].id, enteredTask);
     setEnteredTask("");
   }
 
@@ -31,7 +32,7 @@ export default function Content({
   }
 
   return (
-    <section className='p-8 mt-26'>
+    <section className='h-full p-8 '>
       <h2 className='mb-6 text-5xl font-bold capitalize text-emerald-700'>
         {currentTask[0].projectTitle}
       </h2>

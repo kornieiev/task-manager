@@ -1,50 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Aside from "./Aside";
 import Content from "./Content";
 import NewProjectModal from "./NewProjectModal";
 import Plug from "./Plug";
-
-const dummyProjects = [
-  {
-    id: "1",
-    projectTitle: "Shopping list",
-    projectText: "some dummy text 1",
-    created: "22-10-2025",
-    projectTasks: ["dummy task name 1-1", "dummy task name 1-2"],
-    status: false,
-  },
-  {
-    id: "2",
-    projectTitle: "Study",
-    projectText: "some dummy text 2",
-    created: "22-10-2025",
-    projectTasks: ["dummy task name 2-1", "dummy task name 2-2"],
-    status: true,
-  },
-  {
-    id: "3",
-    projectTitle: "To do list",
-    projectText: "some dummy text 3",
-    created: "22-10-2025",
-    projectTasks: ["dummy task name 3-1", "dummy task name 3-2"],
-    status: false,
-  },
-  {
-    id: "4",
-    projectTitle: "Gym List",
-    projectText: "some dummy text 4",
-    created: "22-10-2025",
-    projectTasks: ["dummy task name 4-1", "dummy task name 4-2"],
-    status: false,
-  },
-];
+import { fetchProjects, createTask, createProject } from "../services/api";
 
 export default function Layout() {
-  const [tasks, setTasks] = useState(dummyProjects);
+  const [projects, setProjects] = useState([]);
   const [activeTask, setActiveTask] = useState(null);
   const [enteredTask, setEnteredTask] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [approveDelete, setApproveDelete] = useState([]);
+
+  useEffect(() => {
+    async function getAllProjects() {
+      const projects = await fetchProjects();
+      setProjects(projects);
+    }
+    getAllProjects();
+  }, []);
 
   function handleActiveTask(id) {
     if (!id) {
@@ -54,19 +28,18 @@ export default function Layout() {
     setEnteredTask("");
   }
 
-  function addNewTask(id, newTask) {
-    const currentTask = tasks.find((task) => task.id === id);
-    if (!currentTask) {
-      return;
-    }
+  async function addNewTask(id, newTask) {
+    try {
+      // Отправляем новую задачу на сервер
+      await createTask(id, newTask);
 
-    setTasks((prev) => {
-      return prev.map((task) =>
-        task.id === id
-          ? { ...task, projectTasks: [...task.projectTasks, newTask] }
-          : task
-      );
-    });
+      // После успешного создания перезагружаем данные
+      const updatedProjects = await fetchProjects();
+      setProjects(updatedProjects);
+    } catch (error) {
+      console.error("Ошибка при добавлении задачи:", error);
+      // Можешь добавить уведомление пользователю об ошибке
+    }
   }
 
   function addNewProject(newProject) {
@@ -80,8 +53,7 @@ export default function Layout() {
   return (
     <div className='grid grid-cols-[1fr_4fr] min-w-screen w-full bg-custom-yellow h-screen gap-4'>
       <Aside
-        className='p-4 '
-        dummyProjects={tasks}
+        projects={projects}
         activeTask={activeTask}
         handleActiveTask={handleActiveTask}
         toggleModal={handleToggleModal}
@@ -94,7 +66,7 @@ export default function Layout() {
       {activeTask ? (
         <Content
           className='p-4 bg-blue-100 '
-          currentTask={tasks.filter((task) => task.id === activeTask)}
+          currentTask={projects.filter((task) => task.id === activeTask)}
           addNewTask={addNewTask}
           enteredTask={enteredTask}
           setEnteredTask={setEnteredTask}
