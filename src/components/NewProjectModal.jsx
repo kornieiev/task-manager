@@ -1,5 +1,7 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { createProject } from "../services/api";
+import validateForm from "../helpers.js/newProjectValidation";
 
 const style = {
   label:
@@ -21,13 +23,22 @@ export default function NewProjectModal({
   const descriptionRef = useRef();
   const dueDateRef = useRef();
 
+  const [errors, setErrors] = useState({});
+
   if (!showModal) return null;
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("e", e);
+    setErrors({});
 
-    // toggleModal();
+    const title = titleRef.current.value;
+    const description = descriptionRef.current.value;
+    const dueDate = dueDateRef.current.value;
+
+    const valRes = validateForm(title, description, dueDate);
+    if (valRes) {
+      setErrors(valRes);
+    }
   }
 
   return createPortal(
@@ -48,6 +59,7 @@ export default function NewProjectModal({
           onSubmit={handleSubmit}
         >
           <div className={style.inputWrapper}>
+            {errors?.title && <p className='text-red-500'>{errors?.title}</p>}
             <input
               ref={titleRef}
               className={style.input}
@@ -61,6 +73,10 @@ export default function NewProjectModal({
             </label>
           </div>
           <div className={style.inputWrapper}>
+            {errors?.description && (
+              <p className='text-red-500'>{errors?.description}</p>
+            )}
+
             <textarea
               ref={descriptionRef}
               className={style.input + " resize-none max-h-[150px]"}
@@ -72,6 +88,9 @@ export default function NewProjectModal({
             </label>
           </div>
           <div className={style.inputWrapper}>
+            {errors?.dueDate && (
+              <p className='text-red-500'>{errors?.dueDate}</p>
+            )}
             <input
               ref={dueDateRef}
               className={style.input}
