@@ -1,4 +1,4 @@
-export default function AddProject({ children, toggleModal }) {
+export default function AddProjectButton({ children, toggleModal }) {
   return (
     <div className='content-center text-center '>
       <button
