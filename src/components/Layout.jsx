@@ -38,13 +38,21 @@ export default function Layout() {
       setProjects(updatedProjects);
     } catch (error) {
       console.error("Ошибка при добавлении задачи:", error);
-      // Можешь добавить уведомление пользователю об ошибке
     }
   }
 
-  function addNewProject(newProject) {
-    console.log("addNewProject");
+  async function addNewProject(title, description, dueDate) {
+    console.log("addNewProject", title, description, dueDate);
+    try {
+      await createProject(title, description, dueDate);
+      const updatedProjects = await fetchProjects();
+      setProjects(updatedProjects);
+    } catch (error) {
+      console.error("Ошибка при добавлении проекта:", error);
+    }
   }
+
+  async function deleteProject() {}
 
   function handleToggleModal() {
     setShowModal((prev) => !prev);
@@ -72,6 +80,7 @@ export default function Layout() {
           setEnteredTask={setEnteredTask}
           approveDelete={approveDelete}
           setApproveDelete={setApproveDelete}
+          deleteProject={deleteProject}
         />
       ) : (
         <Plug toggleModal={handleToggleModal} />

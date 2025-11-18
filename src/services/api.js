@@ -33,14 +33,15 @@ async function createTask(projectId, taskText) {
   }
 }
 
-async function createProject(title, description) {
+async function createProject(title, description, due_date) {
+  console.log("срабатывание createProject");
   try {
     const response = await fetch("http://localhost:3003/api/projects", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title, description }),
+      body: JSON.stringify({ title, description, due_date }),
     });
 
     if (!response.ok) {

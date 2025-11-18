@@ -7,10 +7,12 @@ export default function Content({
   setEnteredTask,
   approveDelete,
   setApproveDelete,
+  deleteProject,
 }) {
   const [errorMassage, setErrorMessage] = useState("");
+  const [confirmDeleteProject, setConfirmDeleteProject] = useState(false);
 
-  function handleClick(e) {
+  function handleAddTask(e) {
     e.preventDefault();
     if (enteredTask.length < 2) {
       setErrorMessage(
@@ -19,29 +21,64 @@ export default function Content({
       return;
     }
 
-    console.log("enteredValue", enteredTask);
     addNewTask(currentTask[0].id, enteredTask);
     // addNewTask(currentTask[0].id, enteredTask);
     setEnteredTask("");
   }
 
-  function onHandleChange(e) {
+  function handleTaskInputChange(e) {
     setEnteredTask(e.target.value);
     setEnteredTask(e.target.value);
     setErrorMessage("");
   }
 
+  function handleDeleteTask() {
+    setConfirmDeleteProject((prev) => !prev);
+  }
+
   return (
     <section className='h-full p-8 '>
-      <h2 className='mb-6 text-5xl font-bold capitalize text-emerald-700'>
-        {currentTask[0].projectTitle}
-      </h2>
-      <p>Date: {currentTask[0].created}</p>
-      <p>Theme: {currentTask[0].projectTitle}</p>
+      <div className='relative'>
+        <h2 className='mb-6 text-5xl font-bold capitalize text-shadow-md text-emerald-700'>
+          {currentTask[0].projectTitle}
+        </h2>
+        <p>Date: {currentTask[0].created}</p>
+        <p>Theme: {currentTask[0].projectTitle}</p>
+
+        {confirmDeleteProject ? (
+          <div className='absolute flex gap-3 right-5 top-3'>
+            <button
+              className='px-2 py-1 transition-all duration-300 cursor-pointer text-shadow-md bg-white/90 text-emerald-700 rounded-xl hover:scale-105 hover:font-semibold hover:bg-white'
+              onClick={() => {
+                setConfirmDeleteProject((prev) => !prev);
+              }}
+            >
+              Cancel
+            </button>
+            <button className='px-2 py-1 transition-all duration-300 cursor-pointer text-shadow-md bg-white/90 text-custom-red rounded-xl hover:scale-105 hover:font-semibold hover:bg-white'>
+              DELETE
+            </button>
+          </div>
+        ) : (
+          <button
+            className='absolute px-3 py-2 text-xl transition-all duration-300 cursor-pointer text-shadow-md rounded-xl right-5 top-3 bg-custom-red/30 hover:scale-103 hover:bg-custom-red/60 hover:text-white'
+            type='button'
+            onClick={handleDeleteTask}
+          >
+            Delete project
+          </button>
+        )}
+        {confirmDeleteProject && (
+          <p className='absolute px-2 font-semibold rounded-xl right-5 top-16 bg-white/50 text-custom-red'>
+            * By pressing DELETE button you confirm that all tasks related to
+            this project will be deleted
+          </p>
+        )}
+      </div>
 
       <form
         className='relative flex items-center gap-6 mt-6 '
-        onSubmit={handleClick}
+        onSubmit={handleAddTask}
         action='submit'
       >
         <input
@@ -49,7 +86,7 @@ export default function Content({
           type='text'
           placeholder='Enter task here'
           value={enteredTask}
-          onChange={onHandleChange}
+          onChange={handleTaskInputChange}
         />
         {errorMassage && (
           <span className='absolute italic font-semibold transition-all duration-300 transform -top-6 left-50 text-custom-red animate-pulse'>
@@ -58,7 +95,7 @@ export default function Content({
         )}
 
         <button
-          className='px-6 py-2 text-lg font-medium transition-all duration-300 bg-white h-fit hover:bg-amber-200 text-black/80 rounded-xl hover:outline hover:outline-gray-300 hover:text-emerald-700'
+          className='px-6 py-2 text-lg font-medium transition-all duration-300 bg-white cursor-pointer text-shadow-md h-fit hover:bg-amber-200 text-black/80 rounded-xl hover:outline hover:outline-gray-300 hover:text-emerald-700'
           type='submit'
         >
           + Add task

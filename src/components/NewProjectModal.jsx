@@ -27,7 +27,7 @@ export default function NewProjectModal({
 
   if (!showModal) return null;
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     setErrors({});
 
@@ -36,9 +36,19 @@ export default function NewProjectModal({
     const dueDate = dueDateRef.current.value;
 
     const valRes = validateForm(title, description, dueDate);
-    if (valRes) {
+    // console.log("valRes", valRes);
+    if (valRes && Object.keys(valRes).length > 0) {
       setErrors(valRes);
+      return;
     }
+
+    await addNewProject(title, description, dueDate);
+
+    titleRef.current.value = "";
+    descriptionRef.current.value = "";
+    dueDateRef.current.value = "";
+
+    toggleModal();
   }
 
   return createPortal(
