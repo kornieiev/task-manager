@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Content({
   currentTask,
@@ -7,10 +7,12 @@ export default function Content({
   setEnteredTask,
   approveDelete,
   setApproveDelete,
-  deleteProject,
+  removeProject,
 }) {
   const [errorMassage, setErrorMessage] = useState("");
   const [confirmDeleteProject, setConfirmDeleteProject] = useState(false);
+
+  console.log("currentTask", currentTask[0]);
 
   function handleAddTask(e) {
     e.preventDefault();
@@ -36,6 +38,13 @@ export default function Content({
     setConfirmDeleteProject((prev) => !prev);
   }
 
+  useEffect(() => {
+    setConfirmDeleteProject(false);
+    return () => {
+      setConfirmDeleteProject(false);
+    };
+  }, [currentTask]);
+
   return (
     <section className='h-full p-8 '>
       <div className='relative'>
@@ -55,7 +64,12 @@ export default function Content({
             >
               Cancel
             </button>
-            <button className='px-2 py-1 transition-all duration-300 cursor-pointer text-shadow-md bg-white/90 text-custom-red rounded-xl hover:scale-105 hover:font-semibold hover:bg-white'>
+            <button
+              className='px-2 py-1 transition-all duration-300 cursor-pointer text-shadow-md bg-white/90 text-custom-red rounded-xl hover:scale-105 hover:font-semibold hover:bg-white'
+              onClick={() => {
+                removeProject(currentTask[0].id);
+              }}
+            >
               DELETE
             </button>
           </div>

@@ -34,7 +34,6 @@ async function createTask(projectId, taskText) {
 }
 
 async function createProject(title, description, due_date) {
-  console.log("срабатывание createProject");
   try {
     const response = await fetch("http://localhost:3003/api/projects", {
       method: "POST",
@@ -56,4 +55,23 @@ async function createProject(title, description, due_date) {
   }
 }
 
-export { fetchProjects, createTask, createProject };
+async function deleteProject(id) {
+  console.log("id in api", id);
+  try {
+    const response = await fetch(`http://localhost:3003/api/projects/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete project");
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Ошибка удаления проекта:", error);
+    throw error;
+  }
+}
+
+export { fetchProjects, createTask, createProject, deleteProject };

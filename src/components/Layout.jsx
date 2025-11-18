@@ -3,7 +3,12 @@ import Aside from "./Aside";
 import Content from "./Content";
 import NewProjectModal from "./NewProjectModal";
 import Plug from "./Plug";
-import { fetchProjects, createTask, createProject } from "../services/api";
+import {
+  fetchProjects,
+  createTask,
+  createProject,
+  deleteProject,
+} from "../services/api";
 
 export default function Layout() {
   const [projects, setProjects] = useState([]);
@@ -42,7 +47,6 @@ export default function Layout() {
   }
 
   async function addNewProject(title, description, dueDate) {
-    console.log("addNewProject", title, description, dueDate);
     try {
       await createProject(title, description, dueDate);
       const updatedProjects = await fetchProjects();
@@ -52,7 +56,17 @@ export default function Layout() {
     }
   }
 
-  async function deleteProject() {}
+  async function removeProject(id) {
+    console.log("СРАБАТЫВАНИЕ removeProject");
+    try {
+      await deleteProject(id);
+      const updatedProjects = await fetchProjects();
+      setProjects(updatedProjects);
+      setActiveTask(null);
+    } catch (error) {
+      console.error("Ошибка при удалении проекта:", error);
+    }
+  }
 
   function handleToggleModal() {
     setShowModal((prev) => !prev);
@@ -81,6 +95,7 @@ export default function Layout() {
           approveDelete={approveDelete}
           setApproveDelete={setApproveDelete}
           deleteProject={deleteProject}
+          removeProject={removeProject}
         />
       ) : (
         <Plug toggleModal={handleToggleModal} />
