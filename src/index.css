@@ -49,13 +49,14 @@
   100% {
     opacity: 1;
     transform: scale(1);
+    background-color: --color-custom-blue;
+    color: rgba(255, 255, 255, 0.8);
   }
   50% {
     opacity: 0.9;
     transform: scale(1.02);
-    outline: 2px solid white;
-
-    /* color: #d79922; */
+    background-color: #4057a1e2;
+    color: rgba(255, 255, 255);
   } /* Менее заметное затемнение */
 }
 

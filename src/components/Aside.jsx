@@ -12,7 +12,7 @@ export default function Aside({
     <div className='max-h-screen'>
       <Logo />
 
-      <div className='h-[calc(100%-150px)] p-6 bg-custom-light-blue rounded-tr-4xl  border-t-2 border-r-2 border-custom-blue'>
+      <div className='h-[calc(100%-150px)] py-10 px-6 bg-custom-light-blue rounded-tr-4xl border-t-2 border-r-2 border-custom-blue/80 shadow-lg shadow-custom-blue'>
         <AddProjectButton toggleModal={toggleModal}>
           + New Project
         </AddProjectButton>

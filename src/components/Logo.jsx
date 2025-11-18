@@ -5,7 +5,7 @@ export default function Logo() {
   return (
     <div className='my-6 w-[200px] h-[100px] mx-auto'>
       <h1
-        className={`animate-pulse-soft text-center bg-custom-blue font-audiowide text-[10px] wrap-break-word font-bold rounded-xl p-4 text-white hover:animate-none`}
+        className={`animate-pulse-soft text-center bg-custom-blue font-audiowide text-[10px] wrap-break-word font-bold rounded-xl p-4 text-white hover:animate-none shadow-lg shadow-custom-blue`}
       >
         Task Manager
       </h1>
