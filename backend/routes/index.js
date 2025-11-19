@@ -1,12 +1,12 @@
 import express from "express";
 import { projectsRouter } from "./projects.js";
-// import { tasksRouter } from "./tasks.js"; // когда будет создан отдельный роутер для задач
+import { tasksRouter } from "./tasks.js";
 
 const router = express.Router();
 
 // Подключение роутеров к соответствующим путям:
-router.use("/projects", projectsRouter);
+router.use("/projects", projectsRouter); // роутер для проектов
 
-// router.use("/tasks", tasksRouter); // для будущих отдельных задач
+router.use("/tasks", tasksRouter); // роутер для задач
 
 export default router;

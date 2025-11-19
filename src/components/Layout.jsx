@@ -8,6 +8,7 @@ import {
   createTask,
   createProject,
   deleteProject,
+  deleteTask,
 } from "../services/api";
 
 export default function Layout() {
@@ -43,6 +44,21 @@ export default function Layout() {
       setProjects(updatedProjects);
     } catch (error) {
       console.error("Ошибка при добавлении задачи:", error);
+    }
+  }
+
+  async function removeTask(projectId, taskId) {
+    console.log("СРАБАТЫВАНИЕ removeTask");
+    console.log("first-projectId", projectId);
+    console.log("first-taskId", taskId);
+
+    try {
+      await deleteTask(projectId, taskId);
+
+      const updatedProjects = await fetchProjects();
+      setProjects(updatedProjects);
+    } catch (error) {
+      console.error("Ошибка при удалении задачи:", error);
     }
   }
 
@@ -100,6 +116,7 @@ export default function Layout() {
           setApproveDelete={setApproveDelete}
           deleteProject={deleteProject}
           removeProject={removeProject}
+          removeTask={removeTask}
         />
       ) : (
         <Plug toggleModal={handleToggleModal} />

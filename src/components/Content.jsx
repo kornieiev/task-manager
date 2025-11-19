@@ -8,6 +8,7 @@ export default function Content({
   approveDelete,
   setApproveDelete,
   removeProject,
+  removeTask,
 }) {
   const [errorMassage, setErrorMessage] = useState("");
   const [confirmDeleteProject, setConfirmDeleteProject] = useState(false);
@@ -26,7 +27,6 @@ export default function Content({
     }
 
     addNewTask(currentTask[0].id, enteredTask);
-    // addNewTask(currentTask[0].id, enteredTask);
     setEnteredTask("");
   }
 
@@ -113,7 +113,7 @@ export default function Content({
         <input
           className={`${errorMassage ? " outline outline-custom-red" : null} relative px-3 py-2 bg-white border border-gray-300 rounded-xl h-fit w-3xl`}
           type='text'
-          placeholder='Enter task here'
+          placeholder='Add new task here...'
           value={enteredTask}
           onChange={handleTaskInputChange}
         />
@@ -144,7 +144,6 @@ export default function Content({
                 >
                   {task.title}
                 </p>
-
                 {approveDelete.includes(idx) ? (
                   <button
                     className='h-[42px] px-2 py-1 transition-all duration-300 bg-white/90 text-emerald-700 rounded-xl hover:scale-105 hover:font-semibold hover:bg-white'
@@ -174,7 +173,10 @@ export default function Content({
                   <>
                     <button
                       className='h-[42px] px-2 py-1 transition-all duration-300 bg-white/90 text-custom-red rounded-xl hover:scale-105 hover:font-semibold hover:bg-white'
-                      onClick={() => console.log("DELETE")}
+                      onClick={() => {
+                        removeTask(currentTask[0].id, task.id);
+                        setApproveDelete([]);
+                      }}
                     >
                       Delete
                     </button>
