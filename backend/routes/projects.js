@@ -29,13 +29,24 @@ projectsRouter.get("/", async (req, res) => {
       );
 
       // Добавляем задачи в проект
-      project.projectTasks = tasksResult.rows.map((task) => task.task_text);
+      project.projectTasks = tasksResult.rows.map((task) => {
+        return {
+          id: task.id,
+          title: task.task_text,
+          completed: task.completed,
+          priority: task.priority,
+        };
+      });
 
       // Переименовываем поля для совместимости с React кодом
       project.projectTitle = project.title;
       project.projectText = project.description;
       project.created = project.created_at.toISOString().split("T")[0]; // Форматируем дату
     }
+
+    console.log("projects", projects);
+
+    console.log("projects.projectTasks", projects[0].projectTasks);
 
     // Отправляем проекты в нужном формате
     res.json(projects);

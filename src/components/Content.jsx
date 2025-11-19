@@ -13,6 +13,8 @@ export default function Content({
   const [confirmDeleteProject, setConfirmDeleteProject] = useState(false);
 
   console.log("currentTask", currentTask[0]);
+  console.log("currentTask[0].projectTasks", currentTask[0].projectTasks);
+  console.log("currentTask[0].projectTasks[0]", currentTask[0].projectTasks[0]);
 
   function handleAddTask(e) {
     e.preventDefault();
@@ -45,14 +47,27 @@ export default function Content({
     };
   }, [currentTask]);
 
+  function getTaskPriorityColor(color) {
+    switch (color) {
+      case "low":
+        return "border-green-500";
+      case "medium":
+        return "border-yellow-500";
+      case "high":
+        return "border-red-500";
+      default:
+        break;
+    }
+  }
+
   return (
     <section className='h-full p-8 '>
       <div className='relative'>
-        <h2 className='mb-6 text-5xl font-bold capitalize text-shadow-md text-emerald-700'>
+        <h2 className='text-5xl font-bold capitalize border-mb-6 text-shadow-md text-emerald-700'>
           {currentTask[0].projectTitle}
         </h2>
         <p>Date: {currentTask[0].created}</p>
-        <p>Theme: {currentTask[0].projectTitle}</p>
+        <p>Description: {currentTask[0].projectText}</p>
 
         {confirmDeleteProject ? (
           <div className='absolute flex gap-3 right-5 top-3'>
@@ -115,58 +130,65 @@ export default function Content({
           + Add task
         </button>
       </form>
-      <ul className='flex flex-col gap-2 mt-4'>
-        Tasks:
-        {currentTask[0].projectTasks.map((task, idx) => {
-          return (
-            <li className='flex flex-row gap-3 ' key={idx}>
-              <p
-                className=' h-[42px] flex-1 max-w-3xl px-4 py-2 bg-white border border-gray-200 rounded-xl'
-                type='text'
-              >
-                {task}
-              </p>
-              {approveDelete.includes(idx) ? (
-                <button
-                  className='h-[42px] px-2 py-1 transition-all duration-300 bg-white/90 text-emerald-700 rounded-xl hover:scale-105 hover:font-semibold hover:bg-white'
-                  onClick={() => {
-                    console.log("Cancel");
-                    setApproveDelete([]);
-                  }}
-                >
-                  Cancel
-                </button>
-              ) : (
-                <button
-                  className='h-[42px] text-2xl p-[5px] transition-all duration-300 hover:scale-120 hover:font-semibold hover:text-custom-red'
-                  type='button'
-                  // onClick={() => setApproveDelete((prev) => !prev)}
+      {currentTask[0].projectTasks.length > 0 ? (
+        <ul className='flex flex-col gap-2 mt-4'>
+          <p className='text-2xl text-custom-red/80'>Tasks:</p>
 
-                  onClick={() =>
-                    setApproveDelete((prev) =>
-                      prev.includes(idx)
-                        ? prev.filter((id) => id !== idx)
-                        : [...prev, idx]
-                    )
-                  }
+          {currentTask[0].projectTasks.map((task, idx) => {
+            return (
+              <li className='flex flex-row gap-3' key={task.id}>
+                {task.completed ? <p>Y</p> : <p>N</p>}
+                <p
+                  className={`h-[42px] flex-1 max-w-3xl px-4 py-2 bg-white border border-gray-200 rounded-xl ${getTaskPriorityColor(task.priority)}`}
+                  type='text'
                 >
-                  ×
-                </button>
-              )}
-              {approveDelete.includes(idx) && (
-                <>
+                  {task.title}
+                </p>
+
+                {approveDelete.includes(idx) ? (
                   <button
-                    className='h-[42px] px-2 py-1 transition-all duration-300 bg-white/90 text-custom-red rounded-xl hover:scale-105 hover:font-semibold hover:bg-white'
-                    onClick={() => console.log("DELETE")}
+                    className='h-[42px] px-2 py-1 transition-all duration-300 bg-white/90 text-emerald-700 rounded-xl hover:scale-105 hover:font-semibold hover:bg-white'
+                    onClick={() => {
+                      console.log("Cancel");
+                      setApproveDelete([]);
+                    }}
                   >
-                    Delete
+                    Cancel
                   </button>
-                </>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+                ) : (
+                  <button
+                    className='h-[42px] text-2xl p-[5px] transition-all duration-300 hover:scale-120 hover:font-semibold hover:text-custom-red'
+                    type='button'
+                    onClick={() =>
+                      setApproveDelete((prev) =>
+                        prev.includes(idx)
+                          ? prev.filter((id) => id !== idx)
+                          : [...prev, idx]
+                      )
+                    }
+                  >
+                    ×
+                  </button>
+                )}
+                {approveDelete.includes(idx) && (
+                  <>
+                    <button
+                      className='h-[42px] px-2 py-1 transition-all duration-300 bg-white/90 text-custom-red rounded-xl hover:scale-105 hover:font-semibold hover:bg-white'
+                      onClick={() => console.log("DELETE")}
+                    >
+                      Delete
+                    </button>
+                  </>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <p className='text-2xl text-center mt-18 text-custom-red/80'>
+          There are no created tasks yet.
+        </p>
+      )}
     </section>
   );
 }

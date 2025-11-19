@@ -50,6 +50,11 @@ export default function Layout() {
     try {
       await createProject(title, description, dueDate);
       const updatedProjects = await fetchProjects();
+
+      if (updatedProjects[0].id) {
+        setActiveTask(updatedProjects[0].id);
+      }
+
       setProjects(updatedProjects);
     } catch (error) {
       console.error("Ошибка при добавлении проекта:", error);
@@ -57,7 +62,6 @@ export default function Layout() {
   }
 
   async function removeProject(id) {
-    console.log("СРАБАТЫВАНИЕ removeProject");
     try {
       await deleteProject(id);
       const updatedProjects = await fetchProjects();

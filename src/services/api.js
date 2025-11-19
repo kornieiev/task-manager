@@ -56,7 +56,6 @@ async function createProject(title, description, due_date) {
 }
 
 async function deleteProject(id) {
-  console.log("id in api", id);
   try {
     const response = await fetch(`http://localhost:3003/api/projects/${id}`, {
       method: "DELETE",
