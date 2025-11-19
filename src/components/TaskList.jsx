@@ -1,4 +1,14 @@
 export default function TaskList({ projects, activeTask, handleActiveTask }) {
+  function isAllTasksCompleted(tasks) {
+    if (tasks && tasks.length < 0) {
+      return false;
+    }
+
+    return tasks.every((t) => {
+      return t.completed === true;
+    });
+  }
+
   return (
     <div className='flex flex-col gap-6 mt-6'>
       <ul className='flex flex-col gap-3 '>
@@ -17,7 +27,9 @@ export default function TaskList({ projects, activeTask, handleActiveTask }) {
                   isActive ? " text-black" : undefined
                 }`}
               >
-                {isActive ? "✍🏻" : `${project.status ? "✅" : "❌"}`}
+                {isActive
+                  ? "✍🏻"
+                  : `${isAllTasksCompleted(project.projectTasks) ? "✅" : "❌"}`}
               </span>
               <span
                 className={`transition-all duration-300 hover:text-black ${
