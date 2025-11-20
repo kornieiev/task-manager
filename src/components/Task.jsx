@@ -7,7 +7,6 @@ export default function Task({
   removeTask,
   onTaskComplittedChange,
 }) {
-  console.log("currentTask[0].projectTasks", currentTask[0].projectTasks);
   function getTaskPriorityColor(color) {
     switch (color) {
       case "low":
@@ -44,7 +43,7 @@ export default function Task({
               />
 
               <p
-                className={`h-[42px] flex-1 max-w-8/12 px-4 py-2 bg-white border border-gray-200 rounded-xl ${getTaskPriorityColor(task.priority)}`}
+                className={`${getTaskPriorityColor(task.priority)} h-[42px] flex-1 max-w-8/12 px-4 py-2 bg-white border border-l-8 border-gray-200 rounded-xl`}
                 type='text'
               >
                 {task.title}
