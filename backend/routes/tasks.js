@@ -8,8 +8,8 @@ tasksRouter.post("/:id", async (req, res) => {
   try {
     // Получаем ID проекта из параметров URL
     const projectId = parseInt(req.params.id);
-    // Получаем текст задачи из тела запроса
-    const { taskText } = req.body;
+    // Получаем текст задачи и приоритет из тела запроса
+    const { taskText, priority } = req.body;
 
     // Проверяем что задача не пустая
     if (!taskText || taskText.trim().length === 0) {
@@ -17,6 +17,10 @@ tasksRouter.post("/:id", async (req, res) => {
         error: "Task text is required and cannot be empty",
       });
     }
+
+    // Валидируем приоритет
+    const validPriorities = ['low', 'medium', 'high'];
+    const taskPriority = priority && validPriorities.includes(priority) ? priority : 'low';
 
     // Проверяем что проект существует и принадлежит пользователю
     const projectCheck = await pool.query(
@@ -37,10 +41,10 @@ tasksRouter.post("/:id", async (req, res) => {
     const newTaskResult = await pool.query(
       `
       INSERT INTO tasks (project_id, task_text, completed, priority)
-      VALUES ($1, $2, false, 'low')
+      VALUES ($1, $2, false, $3)
       RETURNING id, task_text, completed, priority, created_at
     `,
-      [projectId, taskText.trim()]
+      [projectId, taskText.trim(), taskPriority]
     );
 
     const newTask = newTaskResult.rows[0];

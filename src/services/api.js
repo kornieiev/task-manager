@@ -8,7 +8,7 @@ async function fetchProjects() {
   }
 }
 
-async function createTask(projectId, taskText) {
+async function createTask(projectId, taskText, priority) {
   try {
     const response = await fetch(
       `http://localhost:3003/api/tasks/${projectId}`,
@@ -17,7 +17,7 @@ async function createTask(projectId, taskText) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ taskText }),
+        body: JSON.stringify({ taskText, priority }),
       }
     );
 

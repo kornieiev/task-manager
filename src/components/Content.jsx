@@ -16,6 +16,7 @@ export default function Content({
 }) {
   const [errorMassage, setErrorMessage] = useState("");
   const [confirmDeleteProject, setConfirmDeleteProject] = useState(false);
+  const [priority, setPriority] = useState("low");
 
   function handleAddTask(e) {
     e.preventDefault();
@@ -26,7 +27,7 @@ export default function Content({
       return;
     }
 
-    addNewTask(currentTask[0].id, enteredTask);
+    addNewTask(currentTask[0].id, enteredTask, priority);
     setEnteredTask("");
   }
 
@@ -60,6 +61,8 @@ export default function Content({
         errorMassage={errorMassage}
         enteredTask={enteredTask}
         handleTaskInputChange={handleTaskInputChange}
+        priority={priority}
+        setPriority={setPriority}
       />
 
       {currentTask[0].projectTasks.length > 0 ? (

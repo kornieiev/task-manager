@@ -35,10 +35,10 @@ export default function Layout() {
     setEnteredTask("");
   }
 
-  async function addNewTask(id, newTask) {
+  async function addNewTask(id, newTask, priority = "low") {
     try {
       // Отправляем новую задачу на сервер
-      await createTask(id, newTask);
+      await createTask(id, newTask, priority);
 
       // После успешного создания перезагружаем данные
       const updatedProjects = await fetchProjects();
