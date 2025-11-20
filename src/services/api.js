@@ -54,6 +54,30 @@ async function deleteTask(projectId, taskId) {
   }
 }
 
+async function toggleTask(projectId, taskId, completed) {
+  try {
+    const response = await fetch(
+      `http://localhost:3003/api/tasks/${projectId}/${taskId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ completed }),
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to toggle task");
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Ошибка тогла задачи:", error);
+    throw error;
+  }
+}
+
 async function createProject(title, description, due_date) {
   try {
     const response = await fetch("http://localhost:3003/api/projects", {
@@ -94,4 +118,11 @@ async function deleteProject(id) {
   }
 }
 
-export { fetchProjects, createTask, createProject, deleteProject, deleteTask };
+export {
+  fetchProjects,
+  createProject,
+  deleteProject,
+  createTask,
+  toggleTask,
+  deleteTask,
+};

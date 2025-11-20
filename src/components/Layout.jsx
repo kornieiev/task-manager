@@ -9,6 +9,7 @@ import {
   createProject,
   deleteProject,
   deleteTask,
+  toggleTask,
 } from "../services/api";
 
 export default function Layout() {
@@ -92,6 +93,20 @@ export default function Layout() {
     setShowModal((prev) => !prev);
   }
 
+  async function onTaskComplittedChange(projectId, taskId, completed) {
+    try {
+      await toggleTask(projectId, taskId, completed);
+
+      const updatedProjects = await fetchProjects();
+      setProjects(updatedProjects);
+    } catch (error) {
+      console.error(
+        "Ошибка при переключении статуса выполнения задачи:",
+        error
+      );
+    }
+  }
+
   return (
     <div className='grid grid-cols-[1fr_4fr] min-w-screen w-full bg-custom-yellow h-screen gap-4'>
       <Aside
@@ -117,6 +132,7 @@ export default function Layout() {
           deleteProject={deleteProject}
           removeProject={removeProject}
           removeTask={removeTask}
+          onTaskComplittedChange={onTaskComplittedChange}
         />
       ) : (
         <Plug toggleModal={handleToggleModal} />
