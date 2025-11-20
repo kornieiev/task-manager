@@ -42,8 +42,11 @@ export default function Content({
 
   useEffect(() => {
     setConfirmDeleteProject(false);
+    setPriority("low");
+
     return () => {
       setConfirmDeleteProject(false);
+      setPriority("low");
     };
   }, [currentTask]);
 
