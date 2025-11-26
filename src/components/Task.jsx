@@ -1,5 +1,3 @@
-// import { toggleTask } from "../services/api";
-
 export default function Task({
   currentTask,
   approveDelete,

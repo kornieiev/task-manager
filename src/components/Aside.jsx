@@ -1,4 +1,4 @@
-import AddProjectButton from "./AddProject";
+import Button from "./Button";
 import Logo from "./Logo";
 import TaskList from "./TaskList";
 
@@ -6,16 +6,14 @@ export default function Aside({
   projects,
   activeTask,
   handleActiveTask,
-  toggleModal,
+  ...props
 }) {
   return (
     <div className='max-h-screen'>
       <Logo />
 
-      <div className='h-[calc(100%-150px)] py-10 px-6 bg-custom-light-blue rounded-tr-4xl border-t-2 border-r-2 border-custom-blue/80 shadow-lg shadow-custom-blue'>
-        <AddProjectButton toggleModal={toggleModal}>
-          + New Project
-        </AddProjectButton>
+      <aside className='h-[calc(100%-150px)] py-10 px-6 bg-custom-light-blue rounded-tr-4xl border-t-2 border-r-2 border-custom-blue/80 shadow-lg shadow-custom-blue'>
+        <Button {...props}>+ New Project</Button>
         <h2 className='my-6 text-2xl font-bold text-center uppercase text-custom-red font-exo-2'>
           your projects:
         </h2>
@@ -25,7 +23,7 @@ export default function Aside({
           activeTask={activeTask}
           handleActiveTask={handleActiveTask}
         />
-      </div>
+      </aside>
     </div>
   );
 }

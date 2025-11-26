@@ -108,12 +108,12 @@ export default function Layout() {
   }
 
   return (
-    <div className='grid grid-cols-[1fr_4fr] min-w-screen w-full bg-custom-yellow h-screen gap-4'>
+    <main className='grid grid-cols-[1fr_4fr] min-w-screen w-full bg-custom-yellow h-screen gap-4'>
       <Aside
         projects={projects}
         activeTask={activeTask}
         handleActiveTask={handleActiveTask}
-        toggleModal={handleToggleModal}
+        onClick={handleToggleModal}
       />
       <NewProjectModal
         showModal={showModal}
@@ -137,6 +137,6 @@ export default function Layout() {
       ) : (
         <Plug toggleModal={handleToggleModal} />
       )}
-    </div>
+    </main>
   );
 }

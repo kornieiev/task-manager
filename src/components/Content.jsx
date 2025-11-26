@@ -15,8 +15,8 @@ export default function Content({
   onTaskComplittedChange,
 }) {
   const [errorMassage, setErrorMessage] = useState("");
-  const [confirmDeleteProject, setConfirmDeleteProject] = useState(false);
   const [priority, setPriority] = useState("low");
+  const [confirmDeleteProject, setConfirmDeleteProject] = useState(false);
 
   function handleAddTask(e) {
     e.preventDefault();
@@ -41,11 +41,11 @@ export default function Content({
   }
 
   useEffect(() => {
-    setConfirmDeleteProject(false);
+    // setConfirmDeleteProject(false);
     setPriority("low");
 
     return () => {
-      setConfirmDeleteProject(false);
+      // setConfirmDeleteProject(false);
       setPriority("low");
     };
   }, [currentTask]);
