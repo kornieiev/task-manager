@@ -39,7 +39,6 @@ export default function TaskAddNew({
 
       <select
         className={`${getSelectorBgColor()} py-2 px-2 outline text-center outline-gray-300 rounded-xl h-full`}
-        defaultValue='low'
         onChange={onSelectChange}
         value={priority}
       >

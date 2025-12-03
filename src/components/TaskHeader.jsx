@@ -5,13 +5,26 @@ export default function TaskHeader({
   removeProject,
   handleDeleteTask,
 }) {
+  const formattedDate = new Date(currentTask[0].created).toLocaleDateString(
+    "en-US",
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }
+  );
+
   return (
     <div className='relative'>
       <h2 className='text-5xl font-bold capitalize border-mb-6 text-shadow-md text-emerald-700'>
         {currentTask[0].projectTitle}
       </h2>
-      <p>Date: {currentTask[0].created}</p>
-      <p>Description: {currentTask[0].projectText}</p>
+      <p>
+        <strong>Date:</strong> {formattedDate}
+      </p>
+      <p>
+        <strong>Description:</strong> {currentTask[0].projectText}
+      </p>
 
       {confirmDeleteProject ? (
         <div className='absolute flex gap-3 right-5 top-3'>

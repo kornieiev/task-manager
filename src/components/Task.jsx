@@ -1,10 +1,12 @@
+import { useState } from "react";
+
 export default function Task({
   currentTask,
-  approveDelete,
-  setApproveDelete,
   removeTask,
   onTaskComplittedChange,
 }) {
+  const [approveDelete, setApproveDelete] = useState([]);
+
   function getTaskPriorityColor(color) {
     switch (color) {
       case "low":

@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import Aside from "./Aside";
 import Content from "./Content";
-import NewProjectModal from "./NewProjectModal";
 import Plug from "./Plug";
 import {
   fetchProjects,
-  createTask,
   createProject,
   deleteProject,
+  createTask,
   deleteTask,
   toggleTask,
 } from "../services/api";
@@ -15,9 +14,6 @@ import {
 export default function Layout() {
   const [projects, setProjects] = useState([]);
   const [activeTask, setActiveTask] = useState(null);
-  const [enteredTask, setEnteredTask] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [approveDelete, setApproveDelete] = useState([]);
 
   useEffect(() => {
     async function getAllProjects() {
@@ -32,7 +28,6 @@ export default function Layout() {
       return;
     }
     setActiveTask(id);
-    setEnteredTask("");
   }
 
   async function addNewTask(id, newTask, priority = "low") {
@@ -89,10 +84,6 @@ export default function Layout() {
     }
   }
 
-  function handleToggleModal() {
-    setShowModal((prev) => !prev);
-  }
-
   async function onTaskComplittedChange(projectId, taskId, completed) {
     try {
       await toggleTask(projectId, taskId, completed);
@@ -113,11 +104,7 @@ export default function Layout() {
         projects={projects}
         activeTask={activeTask}
         handleActiveTask={handleActiveTask}
-        onClick={handleToggleModal}
-      />
-      <NewProjectModal
-        showModal={showModal}
-        toggleModal={handleToggleModal}
+        // onClick={handleToggleModal}
         addNewProject={addNewProject}
       />
       {activeTask ? (
@@ -125,17 +112,12 @@ export default function Layout() {
           className='p-4 bg-blue-100 '
           currentTask={projects.filter((task) => task.id === activeTask)}
           addNewTask={addNewTask}
-          enteredTask={enteredTask}
-          setEnteredTask={setEnteredTask}
-          approveDelete={approveDelete}
-          setApproveDelete={setApproveDelete}
-          deleteProject={deleteProject}
           removeProject={removeProject}
           removeTask={removeTask}
           onTaskComplittedChange={onTaskComplittedChange}
         />
       ) : (
-        <Plug toggleModal={handleToggleModal} />
+        <Plug addNewProject={addNewProject} />
       )}
     </main>
   );

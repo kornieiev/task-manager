@@ -1,5 +1,4 @@
 export default function Button({ children, ...props }) {
-  console.log("props", props);
   return (
     <div className='content-center text-center '>
       <button

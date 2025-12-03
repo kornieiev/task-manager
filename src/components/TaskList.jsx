@@ -15,29 +15,29 @@ export default function TaskList({ projects, activeTask, handleActiveTask }) {
         {projects.map((project) => {
           const isActive = activeTask === project.id;
           return (
-            <li
-              key={project.id}
-              onClick={() => handleActiveTask(project.id)}
-              className={`flex gap-3 text-2xl  font-medium capitalize transition-all duration-300 cursor-pointer ${
-                isActive ? "translate-x-2" : undefined
-              } text-black/60 hover:text-black`}
-            >
-              <span
-                className={`text-[1rem] pt-2 ${
-                  isActive ? " text-black" : undefined
-                }`}
+            <li key={project.id} onClick={() => handleActiveTask(project.id)}>
+              <button
+                className={`flex gap-3 text-2xl  font-medium capitalize transition-all duration-300 cursor-pointer ${
+                  isActive ? "translate-x-2" : undefined
+                } text-black/60 hover:text-black`}
               >
-                {isActive
-                  ? "✍🏻"
-                  : `${isAllTasksCompleted(project.projectTasks) ? "✅" : "❌"}`}
-              </span>
-              <span
-                className={`transition-all duration-300 hover:text-black ${
-                  isActive ? "text-black font-bold" : "text-black/70"
-                }`}
-              >
-                {project.projectTitle}
-              </span>
+                <span
+                  className={`text-[1rem] pt-2 ${
+                    isActive ? " text-black" : undefined
+                  }`}
+                >
+                  {isActive
+                    ? "✍🏻"
+                    : `${isAllTasksCompleted(project.projectTasks) ? "✅" : "❌"}`}
+                </span>
+                <span
+                  className={`transition-all duration-300 hover:text-black ${
+                    isActive ? "text-black font-bold" : "text-black/70"
+                  }`}
+                >
+                  {project.projectTitle}
+                </span>
+              </button>
             </li>
           );
         })}

@@ -6,10 +6,6 @@ import TaskHeader from "./TaskHeader";
 export default function Content({
   currentTask,
   addNewTask,
-  enteredTask,
-  setEnteredTask,
-  approveDelete,
-  setApproveDelete,
   removeProject,
   removeTask,
   onTaskComplittedChange,
@@ -17,6 +13,7 @@ export default function Content({
   const [errorMassage, setErrorMessage] = useState("");
   const [priority, setPriority] = useState("low");
   const [confirmDeleteProject, setConfirmDeleteProject] = useState(false);
+  const [enteredTask, setEnteredTask] = useState("");
 
   function handleAddTask(e) {
     e.preventDefault();
@@ -41,11 +38,9 @@ export default function Content({
   }
 
   useEffect(() => {
-    // setConfirmDeleteProject(false);
     setPriority("low");
 
     return () => {
-      // setConfirmDeleteProject(false);
       setPriority("low");
     };
   }, [currentTask]);
@@ -71,8 +66,6 @@ export default function Content({
       {currentTask[0].projectTasks.length > 0 ? (
         <Task
           currentTask={currentTask}
-          approveDelete={approveDelete}
-          setApproveDelete={setApproveDelete}
           removeTask={removeTask}
           onTaskComplittedChange={onTaskComplittedChange}
         />
